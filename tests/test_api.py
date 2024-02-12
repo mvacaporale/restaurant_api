@@ -8,8 +8,7 @@ from restaurants.utils import ISOFORMAT
 class RestaurantsTest(unittest.TestCase):
 
     def setUp(self):
-            self.app = app.test_client()
-            # self.db = db.get_db()
+        self.app = app.test_client()
 
     def test_missing_parameter(self):
         """

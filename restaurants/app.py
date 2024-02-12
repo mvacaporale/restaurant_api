@@ -29,10 +29,10 @@ class Restaurants(Resource):
             }, 400
 
         # Collect list of open restaurants at the given date and time.
-        data = self.restaurant_data.get_open_restuarants(datetime)
+        all_open = self.restaurant_data.get_open_restuarants(datetime)
 
         # Return dummy value for now.
-        return {"data": data}, 200
+        return {"data": all_open}, 200
 
 
 data = RestaurantData()
