@@ -1,13 +1,17 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 
-from .utils import is_isoformat, ISOFORMAT
+from restaurants.data import RestaurantData
+from restaurants.utils import is_isoformat, ISOFORMAT
 
 app = Flask(__name__)
 api = Api(app)
 
 
 class Restaurants(Resource):
+
+    def __init__(self, data):
+        self.restaurant_data = data
 
     def get(self):
 
@@ -20,13 +24,19 @@ class Restaurants(Resource):
         datetime = args['datetime']
         if not is_isoformat(datetime):
             return {
-                "message": f"Invalid datetime format. Should be {ISOFORMAT}."
+                "message": f"Invalid datetime format. Should be '{ISOFORMAT}'. "
+                           f"Instead recieved '{datetime}'."
             }, 400
 
+        # Collect list of open restaurants at the given date and time.
+        data = self.restaurant_data.get_open_restuarants(datetime)
+
         # Return dummy value for now.
-        return {"data": ["Store 1", "Store_2"]}, 200
+        return {"data": data}, 200
 
-api.add_resource(Restaurants, '/restaurants')
 
-if __name__ == '__main__':
-    app.run()
+data = RestaurantData()
+api.add_resource(
+    Restaurants, "/restaurants",
+    resource_class_kwargs={"data": data}
+)
