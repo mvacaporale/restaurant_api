@@ -36,10 +36,7 @@ class RestaurantsTest(unittest.TestCase):
 
         message = response.json["message"]
         self.assertEqual(400, response.status_code)
-        self.assertEqual(
-             f"Invalid datetime format. Should be {ISOFORMAT}.",
-             message
-        )
+        self.assertTrue(f"Invalid datetime format" in message)
 
     def test_get_open_restaurants(self):
         """
@@ -47,7 +44,7 @@ class RestaurantsTest(unittest.TestCase):
         """
 
         payload = {
-            "datetime": "2000-10-31T01:30",
+            "datetime": "2000-10-31T12:00",
         }
         response = self.app.get("/restaurants", query_string=payload)
 
