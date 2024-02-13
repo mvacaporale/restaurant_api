@@ -75,7 +75,7 @@ class RestaurantData:
         before_closes1 = time < df[f"{weekday} {CLOSES}"]
 
         # Find the equivalent time for the previous day. For example, Sun at
-        # 01:00 become Mon at 25:30. This is done because the times wrap around
+        # 01:00 becomes Mon at 25:30. This is done because the times wrap around
         # midnight. For instance, a closing time at 1:30 am would be listed as
         # "25:30". This enables a string comparison of late night open and
         # closed times. Thus, "25:00" (i.e. 1 am) would be considered open for
