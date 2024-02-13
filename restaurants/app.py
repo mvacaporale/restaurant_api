@@ -28,10 +28,8 @@ class Restaurants(Resource):
                            f"Instead received '{datetime}'."
             }, 400
 
-        # Collect list of open restaurants at the given date and time.
+        # Return list of open restaurants at the given date and time.
         all_open = self.restaurant_data.get_open_restaurants(datetime)
-
-        # Return dummy value for now.
         return {"data": all_open}, 200
 
 

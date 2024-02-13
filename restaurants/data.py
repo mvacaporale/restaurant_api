@@ -43,7 +43,9 @@ class RestaurantData:
     def get_restaurant_data(self):
         """
         Download restaurant data and tabulate the open and closing times given
-        the written hours.
+        the written hours. This will add 14 columns to the dataframe, one for
+        closing time and opening time for each day of the week. For example,
+        it will include columns "Mon Opens" and "Mon Closes".
         """
         csv_data = download_csv(DATA_URL)
         df = pd.read_csv(csv_data, sep=",")
@@ -66,18 +68,24 @@ class RestaurantData:
         day = date.fromisoformat(day)
         weekday = WEEKDAYS[day.weekday()]
 
-        # Find all restaurants open at the given time.
+        # Find all restaurants open at the given time. This is done via string
+        # comparison. For example, "09:00" <= "12:00" <= "23:00" would search
+        # all places open at noon.
         after_opens1 = df[f"{weekday} {OPENS}"] <= time
-        before_closes1 = df[f"{weekday} {CLOSES}"] > time
+        before_closes1 = time < df[f"{weekday} {CLOSES}"]
 
-        # Find the equivalent time for the previous day.
-        # For example, Sun at 01:00 become Mon at 25:00
+        # Find the equivalent time for the previous day. For example, Sun at
+        # 01:00 become Mon at 25:30. This is done because the times wrap around
+        # midnight. For instance, a closing time at 1:30 am would be listed as
+        # "25:30". This enables a string comparison of late night open and
+        # closed times. Thus, "25:00" (i.e. 1 am) would be considered open for
+        # a place that closes at "25:30".
         time_plus_24 = add_24_hours(time)
         previous_day = WEEKDAYS[(day.weekday() - 1) % 7]
 
         # Find all restaurants open at the transformed time.
-        after_opens2 = df[f"{previous_day} {OPENS}"] <= time_plus_24
-        before_closes2 = df[f"{previous_day} {CLOSES}"] > time_plus_24
+        after_opens2 = time_plus_24 >= df[f"{previous_day} {OPENS}"]
+        before_closes2 = time_plus_24 < df[f"{previous_day} {CLOSES}"]
 
         # Extract the open restaurant from the dataframe.
         open1 = df[after_opens1 & before_closes1]
