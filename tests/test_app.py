@@ -63,7 +63,7 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open just before midnight on a Friday
         """
-        datetime_str = "2024-02-09T23:59"
+        datetime_str = "9999-12-31T23:59"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
@@ -84,7 +84,7 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open just before midnight on a Thursday.
         """
-        datetime_str = "2024-02-08T23:59"
+        datetime_str = "3016-02-29T23:59"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
@@ -102,7 +102,7 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open just after midnight going into Friday.
         """
-        datetime_str = "2024-02-09T00:15"
+        datetime_str = "1000-04-04T00:15"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
@@ -118,7 +118,7 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open at midnight going into Saturday.
         """
-        datetime_str = "2024-02-10T00:00"
+        datetime_str = "2031-11-15T00:00"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
@@ -130,11 +130,11 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         ]
         self.assertEqual(set(expected), set(output))
 
-    def test_open_monday_1am(self):
+    def test_open_mon_1am(self):
         """
-        Retrieve restaurants open monday at 1am.
+        Retrieve restaurants open Monday at 1am.
         """
-        datetime_str = "2024-02-12T01:00"
+        datetime_str = "2024-07-01T01:00"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
@@ -149,13 +149,14 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open early on a Sunday.
         """
-        datetime_str = "2024-02-14T09:00"
+        datetime_str = "2022-03-13T09:00"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
         output = response.json["data"]
         expected = [
             "Tupelo Honey",
+            "Char Grill",
         ]
         self.assertEqual(set(expected), set(output))
 
@@ -163,7 +164,7 @@ class GetOpenRestaurantsTest(unittest.TestCase):
         """
         Retrieve restaurants open on a Monday at noon.
         """
-        datetime_str = "2024-02-12T12:00"
+        datetime_str = "2021-09-13T12:00"
         payload = {"datetime": datetime_str}
         response = self.app.get("/restaurants", query_string=payload)
 
