@@ -23,7 +23,7 @@ class RestaurantDataTest(unittest.TestCase):
         Validate only isoformat is accepted. 
         """
         with self.assertRaises(ValueError) as exc:
-            self.data.get_open_restuarants("01-01-2021T12:30")
+            self.data.get_open_restaurants("01-01-2021T12:30")
 
 
 if __name__ == "__main__":

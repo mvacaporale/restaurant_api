@@ -25,11 +25,11 @@ class Restaurants(Resource):
         if not is_isoformat(datetime):
             return {
                 "message": f"Invalid datetime format. Should be '{ISOFORMAT}'. "
-                           f"Instead recieved '{datetime}'."
+                           f"Instead received '{datetime}'."
             }, 400
 
         # Collect list of open restaurants at the given date and time.
-        all_open = self.restaurant_data.get_open_restuarants(datetime)
+        all_open = self.restaurant_data.get_open_restaurants(datetime)
 
         # Return dummy value for now.
         return {"data": all_open}, 200

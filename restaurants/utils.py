@@ -35,14 +35,14 @@ def parse_and_tabulate_hours(dataframe):
     # so 14 new columns total (e.g. "Mon Opens" and "Mon Closes").
     for w in WEEKDAYS:
         for c in [OPENS, CLOSES]:
-            new_cloumn = w + " " + c
-            new_df[new_cloumn] = None
+            new_column = w + " " + c
+            new_df[new_column] = None
 
     # Parse the written hours for each restaurant and fill the new columns.
     for index, written_hours in zip(new_df.index, new_df["Hours"]):
 
         # Each restaurant has different hours listed for different days,
-        # seperated by "/" (e.g. "Sun 1pm -5pm / Mon-Fri 9am-10pm").
+        # separated by "/" (e.g. "Sun 1pm -5pm / Mon-Fri 9am-10pm").
         written_hours = written_hours.replace(" ", "")
         for days_and_hours in written_hours.split("/"):
 
@@ -95,7 +95,7 @@ def parse_days_and_hours(days_and_hours):
 def expand_weekdays(days_and_ranges):
     """
     Convert list of weekdays and ranges (e.g. ["Mon-Wed", "Sat"])
-    to list of all inclusicve weekdays (e.g. ["Mon", "Tues" "Wed", "Sat"], 
+    to list of all inclusive weekdays (e.g. ["Mon", "Tues" "Wed", "Sat"], 
     """
     all_days = []
     for d in days_and_ranges.split(","):

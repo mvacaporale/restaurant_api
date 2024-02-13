@@ -50,7 +50,7 @@ class RestaurantData:
         parsed_df = parse_and_tabulate_hours(df)
         return parsed_df
 
-    def get_open_restuarants(self, datetime_str):
+    def get_open_restaurants(self, datetime_str):
         """
         Identify open restaurants given an isoformatted datetime string.
         """
