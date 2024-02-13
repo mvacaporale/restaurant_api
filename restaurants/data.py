@@ -1,8 +1,8 @@
-import requests
 from io import StringIO
 from datetime import date
 
 import pandas as pd
+import requests
 
 from restaurants.utils import (
     is_isoformat,
