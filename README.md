@@ -15,7 +15,7 @@ pip install -r requirements.txt
 python run_app.py
 ```
 
-This runs a local serve that accepts GET requests to the `restaurants` endpoint.
+This runs a local server that accepts GET requests to the `restaurants` endpoint.
 Only one argument is passed, `datetime`, which must be an isoformatted time:
 `%Y-%m-%dT%H:%M`. The returned value is a list of all restaurants open
 at the given input.
